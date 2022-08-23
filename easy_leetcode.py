@@ -150,17 +150,45 @@ def romanToInt(s):
         return val
 
 
-
-
-
   
+# Write a function to find the longest common prefix string amongst an array of strings.
+# If there is no common prefix, return an empty string "".
 
-        
+# Example 1:
+# Input: strs = ["flower","flow","flight"]
+# Output: "fl"
 
+# Example 2:
+# Input: strs = ["dog","racecar","car"]
+# Output: ""
 
+# Explanation: There is no common prefix among the input strings.
+def longestCommonPrefix(strs):
+    """
+    :type strs: List[str]
+    :rtype: str
+    """
+    temp = []
+    if len(strs) == 1:
+            return strs[0]
+    i = 0
+    if strs[i] == "":
+        return ""
+    else:
+        x = [s for s in (strs[i])]
 
-    
-    
+    for c in strs[1:]:
+        for i in range(len(c)):
+            if len(c) > len(x):
+                x.append("")
+            if x[i] == c[i]:
+                temp += c[i]
+            else:
+                break
+        x = [s for s in (temp)]
+        temp = []
+        if x == []:
+                break
 
-
-        
+    result = "".join(map(str, x))
+    return result
