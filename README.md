@@ -1,3 +1,3 @@
-### Leetcode
+## Leetcode
 
-##Self-studying on Leetcode easy version.
+Self-studying on Leetcode easy version.
