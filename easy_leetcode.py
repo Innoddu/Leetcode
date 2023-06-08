@@ -192,3 +192,43 @@ def longestCommonPrefix(strs):
 
     result = "".join(map(str, x))
     return result
+
+
+
+
+
+
+def isValid(s):
+    """
+    :type s: str
+    :rtype: bool
+    input
+    ()[]{}
+    """
+    dic = {"(":")","[":"]","{":"}"}
+    stack = []
+    open_bracket = ['(', '[', '{']
+    close_bracket = [')', ']', '}']
+
+    for i in s:
+        if i in open_bracket:
+            stack.append(i)
+        elif i in close_bracket:
+            if not stack or dic[stack.pop()] != i:
+                return False
+    return len(stack) == 0
+        
+
+
+
+def climbStairs(n):
+    if n == 1:
+        return 1
+    elif n == 2:
+        return 2
+    lst = [0] * (n + 1)
+    lst[1] = 1
+    lst[2] = 2
+    for i in range(3, n+1):
+        lst[i] =  lst[i - 1] + lst[i - 2]
+    return lst[n]
