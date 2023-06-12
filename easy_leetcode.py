@@ -220,8 +220,12 @@ def isValid(s):
         
 
 
-
+# DP 
 def climbStairs(n):
+    """
+    You are climbing a staircase. It takes n steps to reach the top.
+    Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+    """
     if n == 1:
         return 1
     elif n == 2:
@@ -232,3 +236,171 @@ def climbStairs(n):
     for i in range(3, n+1):
         lst[i] =  lst[i - 1] + lst[i - 2]
     return lst[n]
+
+
+
+def mySqrt(x):
+    """
+    Given a non-negative integer x, 
+    return the square root of x rounded down to the nearest integer.
+    The returned integer should be non-negative as well.
+
+    You must not use any built-in exponent function or operator.
+    """
+    if x == 1 or x == 3:
+        return 1
+    root_val = x**(1/2)
+    # print(root_val)
+    if x % 2 != 0:
+        val = root_val // 1
+        return int(val)
+    else:
+        return int(root_val)
+
+
+
+def maxArea(height):
+    """
+    11. Container With Most Water
+    Medium
+    You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
+    Find two lines that together with the x-axis form a container, such that the container contains the most water.
+    Return the maximum amount of water a container can store.
+    Notice that you may not slant the container.
+    """
+    left = 0
+    right = len(height) - 1
+    max_area = []
+    
+    while left < right:
+        if height[left] < height[right]:
+            max_area.append(height[left] * (right-left))
+            left += 1
+        else:
+            max_area.append(height[right] * (right-left))
+            right -= 1
+    return max(max_area)
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+def deleteDuplicates(head):
+    """
+    83. Remove Duplicates from Sorted List
+    Easy.
+    Given the head of a sorted linked list, delete all duplicates such that each element appears only once. 
+    Return the linked list sorted as well.
+    """
+    current = head
+    while current and current.next:
+        if current.val == current.next.val:
+            current.next = current.next.next
+        else:
+            current = current.next
+    return head
+
+
+
+def merge(nums1, m, nums2, n):
+    """
+    Do not return anything, modify nums1 in-place instead.
+    88. Merge Sorted Array
+    Easy
+
+    You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
+
+    Merge nums1 and nums2 into a single array sorted in non-decreasing order.
+
+    The final sorted array should not be returned by the function, but instead be stored inside the array nums1. 
+    
+    To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
+
+    """
+    p1 = m - 1
+    p2 = n - 1
+    p = m + n - 1
+    
+    while p1 >= 0 and p2 >= 0:
+        if nums1[p1] <= nums2[p2]:
+            nums1[p] = nums2[p2]
+            p2 -= 1
+            p -= 1
+        elif nums1[p1] >= nums2[p2]:
+            nums1[p] = nums1[p1]
+            p1 -= 1
+            p -= 1
+    while p2 >= 0:
+        nums1[p] = nums2[p2]
+        p2 -= 1
+        p -= 1
+
+
+
+
+
+def inorderTraversal(root):
+    """
+    94. Binary Tree Inorder Traversal
+    Easy
+
+    Given the root of a binary tree, return the inorder traversal of its nodes' values.
+    """
+    result = []
+    def inorder(node):
+        if node:
+            inorder(node.left)
+            result.append(node.val)
+            inorder(node.right)
+
+    inorder(root)
+    return result
+
+
+def isSameTree(p, q):
+    """
+    100. Same Tree
+    Easy
+    
+    Given the roots of two binary trees p and q, write a function to check if they are the same or not.
+
+    Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
+    """
+    if not p and not q:
+        return True
+    if not p or not q or p.val != q.val:
+        return False
+    return Solution.isSameTree(self,p.left, q.left) and Solution.isSameTree(self,p.right, q.right)
+
+
+
+
+
+
+
+
+
+def generate(numRows):
+    """
+    118. Pascal's Triangle
+    Easy
+
+    Given an integer numRows, return the first numRows of Pascal's triangle.
+
+    In Pascal's triangle, each number is the sum of the two numbers directly above it as
+    """
+    t = []
+
+    for i in range(numRows):
+        row = [1] * (i + 1)  # Initialize the row with 1s
+
+        # Calculate values from the second element to the second-to-last element
+        for j in range(1, i):
+            row[j] = t[i - 1][j - 1] + t[i - 1][j]
+
+        t.append(row)
+
+    return t
