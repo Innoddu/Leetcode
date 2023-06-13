@@ -364,7 +364,7 @@ def isSameTree(p, q):
     """
     100. Same Tree
     Easy
-    
+
     Given the roots of two binary trees p and q, write a function to check if they are the same or not.
 
     Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
@@ -373,12 +373,7 @@ def isSameTree(p, q):
         return True
     if not p or not q or p.val != q.val:
         return False
-    return Solution.isSameTree(self,p.left, q.left) and Solution.isSameTree(self,p.right, q.right)
-
-
-
-
-
+    return isSameTree(p.left, q.left) and isSameTree(p.right, q.right)
 
 
 
@@ -404,3 +399,68 @@ def generate(numRows):
         t.append(row)
 
     return t
+
+
+
+def isSymmetric(root):
+    """
+    101. Symmetric Tree
+    Easy
+
+    Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+    """
+    if not root:
+        return True
+    return subchildCheck(root.left, root.right)
+
+def subchildCheck(left, right):
+    if not left and not right:
+        return True
+
+    if not left or not right or left.val != right.val:
+        return False
+
+    return subchildCheck(left.left, right.right) and subchildCheck(left.right, right.left)
+
+
+
+
+
+def maxDepth(root):
+    """
+    104. Maximum Depth of Binary Tree
+    Easy
+
+    Given the root of a binary tree, return its maximum depth.
+
+    A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+    """
+    if not root:
+        return 0
+    left_depth = maxDepth(root.left)
+    right_depth = maxDepth(root.right)
+
+    return max(left_depth, right_depth) + 1
+
+
+def sortedArrayToBST(nums):
+    """
+    108. Convert Sorted Array to Binary Search Tree
+    Easy
+    
+    Given an integer array nums where the elements are sorted in ascending order, convert it to a 
+    height-balanced binary search tree.
+    """
+    if not nums:
+        return None
+
+    mid = len(nums) // 2
+    root = TreeNode(nums[mid])
+
+    left_nums = nums[:mid]
+    right_nums = nums[mid+1:]
+
+    root.left = sortedArrayToBST(left_nums)
+    root.right = sortedArrayToBST(right_nums)
+
+    return root
