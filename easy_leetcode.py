@@ -447,7 +447,7 @@ def sortedArrayToBST(nums):
     """
     108. Convert Sorted Array to Binary Search Tree
     Easy
-    
+
     Given an integer array nums where the elements are sorted in ascending order, convert it to a 
     height-balanced binary search tree.
     """
@@ -464,3 +464,31 @@ def sortedArrayToBST(nums):
     root.right = sortedArrayToBST(right_nums)
 
     return root
+
+
+def isBalanced(root):
+    """
+    110. Balanced Binary Tree
+    Easy
+
+    Given a binary tree, determine if it is height-balanced.
+    """
+    if not root:
+        return True
+
+    def height(node):
+        if not node:
+            return 0
+
+        left_height = height(node.left)
+        right_height = height(node.right)
+
+        return max(left_height, right_height) + 1
+
+    left_height = height(root.left)
+    right_height = height(root.right)
+
+    if abs(left_height - right_height) > 1:
+        return False
+
+    return isBalanced(root.left) and isBalanced(root.right)
