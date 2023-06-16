@@ -466,6 +466,10 @@ def sortedArrayToBST(nums):
     return root
 
 
+
+
+
+
 def isBalanced(root):
     """
     110. Balanced Binary Tree
@@ -492,3 +496,30 @@ def isBalanced(root):
         return False
 
     return isBalanced(root.left) and isBalanced(root.right)
+
+
+
+def minDepth(root):
+    """
+    111. Minimum Depth of Binary Tree
+    Easy
+    
+    Given a binary tree, find its minimum depth.
+
+    The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+
+    Note: A leaf is a node with no children.
+    """
+    if not root:
+        return 0
+
+    if not root.left and not root.right:
+        return 1
+
+    if not root.left:
+        return minDepth( root.right) + 1
+
+    if not root.right:
+        return minDepth(root.left) + 1
+
+    return min(minDepth(root.left), minDepth(root.right)) + 1
